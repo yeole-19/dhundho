@@ -6,8 +6,9 @@ class CreateItems < ActiveRecord::Migration[8.1]
       t.string :category
       t.string :status
       t.string :found_at
+      t.string :location
       t.string :contact
-      t.boolean :resolved
+      t.boolean :resolved, default: false
 
       t.timestamps
     end

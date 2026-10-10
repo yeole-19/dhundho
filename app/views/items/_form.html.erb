@@ -27,8 +27,13 @@
   </div>
 
   <div>
+    <%= form.label :location, style: "display: block" %>
+    <%= form.text_field :location %>
+  </div>
+
+  <div>
     <%= form.label :status, style: "display: block" %>
-    <%= form.text_field :status %>
+    <%= form.select :status, ["Lost", "Found"], include_blank: true %>
   </div>
 
   <div>

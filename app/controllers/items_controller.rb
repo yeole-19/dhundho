@@ -84,6 +84,6 @@ end
 
     # Only allow a list of trusted parameters through.
     def item_params
-      params.expect(item: [ :title, :description, :category, :status, :found_at, :contact, :resolved ])
+      params.expect(item: [ :title, :description, :category, :status, :location, :found_at, :contact, :resolved, :person_id ])
     end
 end

@@ -1,11 +1,73 @@
-<% content_for :title, "New item" %>
+<% content_for :title, "Report New Item - Dhundho Lost & Found" %>
 
-<h1>New item</h1>
+<div style="max-width: 700px; margin: 0 auto;">
+  <div class="page-header" style="text-align: center;">
+    <h1 class="page-title">Report New Item</h1>
+    <p class="page-subtitle">Help the community find lost items or report found ones</p>
+  </div>
 
-<%= render "form", item: @item %>
+  <div class="card">
+    <%= form_with model: @item, local: true do |form| %>
+      <% if @item.errors.any? %>
+        <div class="flash flash-error">
+          <strong>Please fix the following errors:</strong>
+          <ul style="margin: 12px 0 0 20px;">
+            <% @item.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-<br>
+      <div class="form-row">
+        <div class="form-group">
+          <%= form.label :title, class: "form-label" %>
+          <%= form.text_field :title, class: "form-input", placeholder: "e.g. Black wallet found near library" %>
+        </div>
+        <div class="form-group">
+          <%= form.label :category, class: "form-label" %>
+          <%= form.select :category, [["Electronics", "Electronics"], ["Clothing", "Clothing"], ["Accessories", "Accessories"], ["Documents", "Documents"], ["Keys", "Keys"], ["Other", "Other"]], { prompt: "Select category" }, class: "form-select" %>
+        </div>
+      </div>
 
-<div>
-  <%= link_to "Back to items", items_path %>
+      <div class="form-group">
+        <%= form.label :description, class: "form-label" %>
+        <%= form.text_area :description, class: "form-textarea", placeholder: "Describe the item in detail (color, brand, unique features, contents if bag/wallet)...", rows: 5 %>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <%= form.label :status, class: "form-label" %>
+          <%= form.select :status, [["Lost", "Lost"], ["Found", "Found"]], { prompt: "Select status" }, class: "form-select" %>
+        </div>
+        <div class="form-group">
+          <%= form.label :location, class: "form-label" %>
+          <%= form.text_field :location, class: "form-input", placeholder: "e.g. Library, Cafeteria, Parking Lot" %>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <%= form.label :found_at, class: "form-label" %>
+          <%= form.text_field :found_at, class: "form-input", placeholder: "Location where lost/found" %>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <%= form.label :contact, class: "form-label" %>
+          <%= form.text_field :contact, class: "form-input", placeholder: "Phone, email, or location to contact" %>
+        </div>
+        <div class="form-group">
+          <%= form.label :person_id, "Reported By", class: "form-label" %>
+          <%= form.select :person_id, Person.all.map { |p| [p.name, p.id] }, { prompt: "Select person (optional)" }, class: "form-select" %>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px; padding-top: 24px; border-top: 1px solid #f0f0f0;">
+        <%= link_to "Cancel", items_path, class: "btn btn-secondary" %>
+        <%= form.submit "Submit Report", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
 </div>

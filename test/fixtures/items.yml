@@ -1,19 +1,21 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  description: MyText
-  category: MyString
-  status: MyString
-  found_at: MyString
-  contact: MyString
+  title: Black Wallet
+  description: Black leather wallet found near the library
+  category: Accessories
+  status: Found
+  found_at: College Library
+  location: College Library
+  contact: student@example.com
   resolved: false
 
 two:
-  title: MyString
-  description: MyText
-  category: MyString
-  status: MyString
-  found_at: MyString
-  contact: MyString
+  title: iPhone 13
+  description: Lost my phone in the cafeteria
+  category: Electronics
+  status: Lost
+  found_at: Student Center
+  location: Student Center
+  contact: john@college.edu
   resolved: false
