@@ -7,5 +7,6 @@ Rails.application.routes.draw do
     member do
       patch :resolve
     end
+    resources :comments
   end
 end

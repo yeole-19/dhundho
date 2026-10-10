@@ -1,10 +1,48 @@
-<p style="color: green"><%= notice %></p>
+<% content_for :title, "#{@person.name} - Dhundho Lost & Found" %>
 
-<%= render @person %>
+<div style="max-width: 700px; margin: 0 auto;">
+  <div class="page-header">
+    <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+      <div>
+        <h1 class="page-title"><%= @person.name %></h1>
+        <p class="page-subtitle">Community member profile</p>
+      </div>
+      <div style="display: flex; gap: 12px;">
+        <%= link_to "Edit", edit_person_path(@person), class: "btn btn-secondary" %>
+        <%= button_to "Delete", @person, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+      </div>
+    </div>
+  </div>
 
-<div>
-  <%= link_to "Edit this person", edit_person_path(@person) %> |
-  <%= link_to "Back to people", people_path %>
+  <div class="card">
+    <div style="display: flex; align-items: center; gap: 24px; margin-bottom: 24px;">
+      <div class="comment-avatar" style="width: 80px; height: 80px; font-size: 32px;"><%= @person.name[0].upcase %></div>
+      <div>
+        <h2 style="font-size: 28px; font-weight: 700; color: #1a1a2e;"><%= @person.name %></h2>
+        <div class="card-meta" style="margin-top: 8px;">
+          <span class="meta-badge badge-category"><%= @person.role %></span>
+          <span class="meta-badge badge-category"><%= @person.gender %></span>
+        </div>
+      </div>
+    </div>
 
-  <%= button_to "Destroy this person", @person, method: :delete %>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; padding-top: 24px; border-top: 1px solid #f0f0f0;">
+      <div>
+        <div class="detail-label">Role</div>
+        <div class="detail-value" style="font-size: 20px;"><%= @person.role %></div>
+      </div>
+      <div>
+        <div class="detail-label">Gender</div>
+        <div class="detail-value" style="font-size: 20px;"><%= @person.gender %></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 24px;">
+    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 20px; color: #1a1a2e;">Actions</h3>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+      <%= link_to "← Back to People", people_path, class: "btn btn-secondary" %>
+      <%= link_to "Edit Profile", edit_person_path(@person), class: "btn btn-primary" %>
+    </div>
+  </div>
 </div>

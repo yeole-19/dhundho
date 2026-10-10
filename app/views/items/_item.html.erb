@@ -1,37 +1,17 @@
-<div id="<%= dom_id item %>">
-  <div>
-    <strong>Title:</strong>
-    <%= item.title %>
-  </div>
+<div class="item" style="border: 1px solid #e0e0e0; padding: 15px; margin: 10px 0; border-radius: 8; background: #fff;">
+  <h3><%= item.title %></h3>
+  
+  <p><strong>Description:</strong> <%= item.description %></p>
+  <p><strong>Category:</strong> <%= item.category %></p>
+  <p><strong>Location:</strong> <%= item.location %></p>
+  <p><strong>Status:</strong> <%= item.status %></p>
+  <p><strong>Found at:</strong> <%= item.found_at %></p>
+  <p><strong>Contact:</strong> <%= item.contact %></p>
+  <p><strong>Resolved:</strong> <%= item.resolved %></p>
+  <p><strong>Reported By:</strong> <%= item.person&.name || "Not specified" %></p>
 
-  <div>
-    <strong>Description:</strong>
-    <%= item.description %>
-  </div>
-
-  <div>
-    <strong>Category:</strong>
-    <%= item.category %>
-  </div>
-
-  <div>
-    <strong>Status:</strong>
-    <%= item.status %>
-  </div>
-
-  <div>
-    <strong>Found at:</strong>
-    <%= item.found_at %>
-  </div>
-
-  <div>
-    <strong>Contact:</strong>
-    <%= item.contact %>
-  </div>
-
-  <div>
-    <strong>Resolved:</strong>
-    <%= item.resolved %>
-  </div>
-
+  <% if item.comments.any? %>
+    <h4>Comments (<%= item.comments.count %>)</h4>
+    <%= render partial: "comments/comment", collection: item.comments, as: "comment" %>
+  <% end %>
 </div>

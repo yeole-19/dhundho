@@ -1,12 +1,81 @@
-<% content_for :title, "Editing item" %>
+<% content_for :title, "Edit Item - Dhundho Lost & Found" %>
 
-<h1>Editing item</h1>
+<div style="max-width: 700px; margin: 0 auto;">
+  <div class="page-header">
+    <h1 class="page-title">Edit Item</h1>
+    <p class="page-subtitle">Update the details for "<%= @item.title %>"</p>
+  </div>
 
-<%= render "form", item: @item %>
+  <div class="card">
+    <%= form_with model: @item, local: true do |form| %>
+      <% if @item.errors.any? %>
+        <div class="flash flash-error">
+          <strong>Please fix the following errors:</strong>
+          <ul style="margin: 12px 0 0 20px;">
+            <% @item.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-<br>
+      <div class="form-row">
+        <div class="form-group">
+          <%= form.label :title, class: "form-label" %>
+          <%= form.text_field :title, class: "form-input" %>
+        </div>
+        <div class="form-group">
+          <%= form.label :category, class: "form-label" %>
+          <%= form.select :category, [["Electronics", "Electronics"], ["Clothing", "Clothing"], ["Accessories", "Accessories"], ["Documents", "Documents"], ["Keys", "Keys"], ["Other", "Other"]], {}, class: "form-select" %>
+        </div>
+      </div>
 
-<div>
-  <%= link_to "Show this item", @item %> |
-  <%= link_to "Back to items", items_path %>
+      <div class="form-group">
+        <%= form.label :description, class: "form-label" %>
+        <%= form.text_area :description, class: "form-textarea", rows: 5 %>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <%= form.label :status, class: "form-label" %>
+          <%= form.select :status, [["Lost", "Lost"], ["Found", "Found"]], {}, class: "form-select" %>
+        </div>
+        <div class="form-group">
+          <%= form.label :location, class: "form-label" %>
+          <%= form.text_field :location, class: "form-input" %>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <%= form.label :found_at, class: "form-label" %>
+          <%= form.text_field :found_at, class: "form-input" %>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <%= form.label :contact, class: "form-label" %>
+          <%= form.text_field :contact, class: "form-input" %>
+        </div>
+        <div class="form-group">
+          <%= form.label :person_id, "Reported By", class: "form-label" %>
+          <%= form.select :person_id, Person.all.map { |p| [p.name, p.id] }, { prompt: "Select person (optional)" }, class: "form-select" %>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <%= form.label :resolved, class: "form-label" %>
+          <%= form.check_box :resolved, class: "form-input", style: "width: auto; height: auto; margin-top: 22px;" %>
+          <label style="font-weight: normal; margin-left: 8px; cursor: pointer;">Mark as resolved</label>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px; padding-top: 24px; border-top: 1px solid #f0f0f0;">
+        <%= link_to "Cancel", @item, class: "btn btn-secondary" %>
+        <%= form.submit "Save Changes", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
 </div>

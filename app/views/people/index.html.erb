@@ -1,16 +1,41 @@
-<p style="color: green"><%= notice %></p>
+<% content_for :title, "People - Dhundho Lost & Found" %>
 
-<% content_for :title, "People" %>
-
-<h1>People</h1>
-
-<div id="people">
-  <% @people.each do |person| %>
-    <%= render person %>
-    <p>
-      <%= link_to "Show this person", person %>
-    </p>
-  <% end %>
+<div class="page-header">
+  <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+    <div>
+      <h1 class="page-title">People</h1>
+      <p class="page-subtitle">Community members and contacts</p>
+    </div>
+    <%= link_to "Add Person", new_person_path, class: "btn btn-primary" %>
+  </div>
 </div>
 
-<%= link_to "New person", new_person_path %>
+<% if @people.any? %>
+  <div class="grid">
+    <% @people.each do |person| %>
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title"><%= link_to person.name, person, style: "color: inherit; text-decoration: none;" %></h2>
+        </div>
+        
+        <div class="card-meta">
+          <span class="meta-badge badge-category">👤 <%= person.role %></span>
+          <span class="meta-badge badge-category">⚧ <%= person.gender %></span>
+        </div>
+
+        <div class="card-footer">
+          <%= link_to "View Profile", person, class: "btn btn-primary btn-sm" %>
+          <%= link_to "Edit", edit_person_path(person), class: "btn btn-secondary btn-sm" %>
+          <%= button_to "Delete", person, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
+        </div>
+      </article>
+    <% end %>
+  </div>
+<% else %>
+  <div class="card empty-state">
+    <div class="empty-icon">👥</div>
+    <h3 class="empty-title">No people yet</h3>
+    <p class="empty-desc">Add community members to help track items</p>
+    <%= link_to "Add Person", new_person_path, class: "btn btn-primary", style: "margin-top: 16px; display: inline-flex;" %>
+  </div>
+<% end %>
