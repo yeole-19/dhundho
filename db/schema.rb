@@ -18,4 +18,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_10_100312) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+  
+  create_table "items", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "category"
+    t.string "status"
+    t.string "found_at"
+    t.string "contact"
+    t.boolean "resolved"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 end
