@@ -3,7 +3,18 @@ class ItemsController < ApplicationController
 
   # GET /items or /items.json
   def index
-    @items = Item.all
+    @items = Item.order(created_at: :desc)
+
+    if params[:status].present?
+      @items = @items.where(status: params[:status])
+    end
+
+    if params[:query].present?
+      @items = @items.where(
+        "title LIKE ?",
+        "%#{Item.sanitize_sql_like(params[:query])}%"
+      )
+    end
   end
 
   # GET /items/1 or /items/1.json
@@ -56,6 +67,14 @@ class ItemsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def resolve
+  @item = Item.find(params[:id])
+  @item.update(resolved: true)
+
+  redirect_to items_path,
+              notice: "Item marked as resolved."
+end
 
   private
     # Use callbacks to share common setup or constraints between actions.
